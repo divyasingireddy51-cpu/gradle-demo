@@ -11,18 +11,17 @@ pipeline {
                 bat 'gradlew.bat clean test'
             }
         }
-        stage('SonarQube Analysis') {
-    steps {
-        withSonarQubeEnv('SonarQubeServer') {
-            // Use the Gradle wrapper instead of the standalone command
-            bat 'gradlew.bat sonar'
-        }
-    }
-}
         stage('Archive Artifact') {
             steps {
                 bat 'gradlew.bat jar'
                 archiveArtifacts artifacts: 'app/build/libs/*.jar', fingerprint: true
+            }
+        }
+                stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQubeServer') {
+                    bat 'gradlew.bat sonar'
+                }
             }
         }
     }
