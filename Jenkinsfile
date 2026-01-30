@@ -8,13 +8,18 @@ pipeline {
         }
         stage('Build & Test') {
             steps {
-                // Changed sh to bat for Windows
                 bat 'gradlew.bat clean test'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                    withSonarQubeEnv('SonarQubeServer') {
+                    bat 'gradlew.bat sonar'
+                }
             }
         }
         stage('Archive Artifact') {
             steps {
-                // Changed sh to bat for Windows
                 bat 'gradlew.bat jar'
                 archiveArtifacts artifacts: 'app/build/libs/*.jar', fingerprint: true
             }
