@@ -14,8 +14,8 @@ pipeline {
         stage('SonarQube Analysis') {
     steps {
         withSonarQubeEnv('SonarQubeServer') {
-            // This uses the standalone scanner instead of the Gradle task
-            bat "sonar-scanner -Dsonar.projectKey=my-project -Dsonar.sources=app/src/main/java -Dsonar.java.binaries=app/build/classes/java/main"
+            // Use the Gradle wrapper instead of the standalone command
+            bat 'gradlew.bat sonar'
         }
     }
 }
@@ -27,5 +27,3 @@ pipeline {
         }
     }
 }
-
-bat "sonar-scanner -Dsonar.projectKey=my-project -Dsonar.sources=app/src/main/java -Dsonar.java.binaries=app/build/classes/java/main"
