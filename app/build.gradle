@@ -1,7 +1,8 @@
 plugins {
     id 'java'
     id 'jacoco' 
-    id "org.sonarsource.scanner.gradle" version "5.1.0.4882" 
+    // Reverting to the alias ID which is more widely indexed in the portal
+    id "org.sonarqube" version "5.1.0.4882" 
 }
 
 repositories {
@@ -24,12 +25,13 @@ jacocoTestReport {
     dependsOn test 
     reports {
         html.required = true 
-        xml.required = true  // ENABLE THIS so Sonar can read the coverage
+        xml.required = true  // Crucial for Sonar to read coverage
     }
 }
 
 sonar {
     properties {
+        // This ensures the scanner finds the Task 1 results
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
