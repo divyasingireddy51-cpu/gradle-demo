@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco' // This is the plugin for Code Coverage required in Task 1, Step B
-    id "org.sonarqube" version "5.1.0.4882" // Added this for Task 3
+    id "org.sonarsource.scanner.gradle" version "5.1.0.4882" // Added this for Task 3
 }
 
 repositories {
@@ -27,5 +27,11 @@ jacocoTestReport {
     dependsOn test 
     reports {
         html.required = true // This creates the HTML report you need for your screenshot
+    }
+}
+
+sonar {
+    properties {
+        property "sonar.coverage.jacoco.xmlReportPaths", "${project.layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }

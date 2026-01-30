@@ -17,12 +17,14 @@ pipeline {
                 archiveArtifacts artifacts: 'app/build/libs/*.jar', fingerprint: true
             }
         }
-                stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQubeServer') {
-                    bat 'gradlew.bat sonar --no-configuration-cache'
-                }
-            }
+               stage('SonarQube Analysis') {
+    steps {
+        withSonarQubeEnv('SonarQubeServer') {
+            // Added --stacktrace to debug if the ID switch doesn't solve it immediately
+            bat 'gradlew.bat sonar --no-configuration-cache --stacktrace'
+        }
+    }
+}
         }
     }
 }
