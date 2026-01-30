@@ -20,7 +20,7 @@ pipeline {
                 stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQubeServer') {
-                    bat 'gradlew.bat sonar'
+                    bat 'gradlew.bat sonar --no-configuration-cache'
                 }
             }
         }
