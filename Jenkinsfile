@@ -30,7 +30,7 @@ pipeline {
                 withSonarQubeEnv('SonarQubeServer') {
                     // Using --no-configuration-cache because Sonar is often incompatible with it
                     // Using --stacktrace to provide detailed error logs if it fails
-                    bat 'gradlew.bat sonar --no-configuration-cache --stacktrace'
+                    bat 'gradlew.bat sonar -Dsonar.token=Divyasingireddy@11 --no-configuration-cache --stacktrace'
                 }
             }
         }
