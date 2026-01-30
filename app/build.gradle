@@ -1,32 +1,30 @@
 plugins {
     id 'java'
-    id 'jacoco' // This is the plugin for Code Coverage required in Task 1, Step B
-    id "org.sonarsource.scanner.gradle" version "5.1.0.4882" // Added this for Task 3
+    id 'jacoco' 
+    id "org.sonarsource.scanner.gradle" version "5.1.0.4882" 
 }
 
 repositories {
-    mavenCentral() // This tells Gradle where to download libraries from
+    mainCentral()
 }
 
 dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
-    
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher' 
-
 }
 
 test {
     useJUnitPlatform()
-    // This ensures that after running tests, the coverage report is automatically created
     finalizedBy jacocoTestReport 
 }
 
 jacocoTestReport {
     dependsOn test 
     reports {
-        html.required = true // This creates the HTML report you need for your screenshot
+        html.required = true 
+        xml.required = true  // ENABLE THIS so Sonar can read the coverage
     }
 }
 

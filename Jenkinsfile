@@ -17,14 +17,13 @@ pipeline {
                 archiveArtifacts artifacts: 'app/build/libs/*.jar', fingerprint: true
             }
         }
-               stage('SonarQube Analysis') {
-    steps {
-        withSonarQubeEnv('SonarQubeServer') {
-            // Added --stacktrace to debug if the ID switch doesn't solve it immediately
-            bat 'gradlew.bat sonar --no-configuration-cache --stacktrace'
-        }
-    }
-}
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQubeServer') {
+                    // Using --stacktrace to catch any remaining Gradle 9 compatibility issues
+                    bat 'gradlew.bat sonar --no-configuration-cache --stacktrace'
+                }
+            }
         }
     }
 }
