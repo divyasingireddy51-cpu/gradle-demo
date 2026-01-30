@@ -1,17 +1,18 @@
 plugins {
     id 'java'
     id 'jacoco' 
-    // Reverting to the alias ID which is more widely indexed in the portal
+    // This ID is the one your environment successfully found in Build #15
     id "org.sonarqube" version "5.1.0.4882" 
 }
 
 repositories {
-    mainCentral()
+    mavenCentral() // Fixed typo here (was mainCentral)
 }
 
 dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+    
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher' 
 }
@@ -25,13 +26,13 @@ jacocoTestReport {
     dependsOn test 
     reports {
         html.required = true 
-        xml.required = true  // Crucial for Sonar to read coverage
+        xml.required = true  // Necessary for SonarQube to read the data
     }
 }
 
 sonar {
     properties {
-        // This ensures the scanner finds the Task 1 results
+        // Points Sonar to the JaCoCo XML file generated in the Build & Test stage
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
