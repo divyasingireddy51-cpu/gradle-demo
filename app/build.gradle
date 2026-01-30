@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco' // This is the plugin for Code Coverage required in Task 1, Step B
-    id "org.sonarqube" version "4.3.1.3277" // Added this for Task 3
+    id "org.sonarqube" version "5.0.0.4638" // Added this for Task 3
 }
 
 repositories {
