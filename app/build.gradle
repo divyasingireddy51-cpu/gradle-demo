@@ -1,18 +1,17 @@
 plugins {
     id 'java'
-    id 'jacoco' 
-    // This ID is the one your environment successfully found in Build #15
+    id 'jacoco'
+    // This version is compatible with Gradle 9.x
     id "org.sonarqube" version "5.1.0.4882" 
 }
 
 repositories {
-    mavenCentral() // Fixed typo here (was mainCentral)
+    mavenCentral() // Must be spelled correctly
 }
 
 dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
-    
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher' 
 }
@@ -26,13 +25,13 @@ jacocoTestReport {
     dependsOn test 
     reports {
         html.required = true 
-        xml.required = true  // Necessary for SonarQube to read the data
+        xml.required = true  
     }
 }
 
+// Modern Gradle 9.x syntax
 sonar {
     properties {
-        // Points Sonar to the JaCoCo XML file generated in the Build & Test stage
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.layout.buildDirectory.get()}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
